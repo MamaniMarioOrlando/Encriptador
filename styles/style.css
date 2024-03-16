@@ -10,6 +10,10 @@ main{
     display: flex;
     justify-content: space-between;
 }
+.primer-section{
+    height: 626.5px;
+    width: 67%;
+}
 .logo{
     padding-top: 2em;
     padding-left: 0.5em;
@@ -18,7 +22,7 @@ main{
 .primer-textarea{
     resize: none;
     width: 62%;
-    height: 73%;
+    height: 63%;
     border: none;
     left: 19%;
     top: 7%;
@@ -26,7 +30,6 @@ main{
     font-size: 32px;
     font-style: normal;
     font-weight: 400;
-    line-height: 150%;
     background-color: #F3F5FC;
     position: relative;
 }
@@ -39,24 +42,36 @@ main{
     border: none;
     outline: none;
 }
-.terminos{
-    position: relative;
-    top: 11%;
-    left: 19%;
-    display: block ruby;
+.div-terminos{
     width: 59%;
-    font-size: 0.7em;
+    position: relative;
+    top: 10%;
+    left: 19%;
+    border: 1px solid red;
+    border-radius: 12px;
+    padding: 10px;
+    visibility: hidden;
+}
+
+.terminos{
+    margin-bottom: 12px;
+    display: block ruby;
+    width: 100%;
+    font-size: 1.2em;
 }
 .sig-exclamation{
-    height: 10px;
+    height: 14px;
     top: 2px;
     position: relative;
 }
-.div-botones{
+.div-botones, .div-boton-pegar{
     position: relative;
     top: 12%;
     text-align: center;
     height: 46.5px;
+}
+.div-boton-pegar{
+    display: none;
 }
 button{
     height: 46px;
@@ -95,6 +110,9 @@ button:hover{
     width: 100%;
     margin-top: 4em;
 }
+.div-mensaje-text{
+    background: #FFF;
+}
 .mensaje{
     text-align: center;
     font-size: 1.5em;
@@ -116,5 +134,5 @@ button:hover{
     position: relative;
     top: 4%;
     color: #0A3871;
-    display: none;
+    visibility: hidden;
 }

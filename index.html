@@ -17,24 +17,34 @@
     </header>
     <main>
         <section class="primer-section">
-            <textarea class="primer-textarea" id="area-text" cols="30" rows="10" placeholder="Ingrese el texto aquí"></textarea>
-            <div class="terminos">
-                <img class="sig-exclamation" src="/images/bi_exclamation-circle-fill.jpg" alt="signo de exclamacion">
-                <h6>Solo letras minusculas y sin acentos</h6>
+            <textarea class="primer-textarea" id="area-text" cols="30" rows="10" onClick="eventTextArea()" placeholder="Ingrese el texto aquí"></textarea>
+            <div class="div-terminos">
+                <div class="terminos">
+                    <img class="sig-exclamation" src="/images/bi_exclamation-circle-fill.png" alt="signo de exclamacion">
+                    <h3>Solo letras minusculas.</h3>
+                </div>
+                <div class="terminos">
+                    <img class="sig-exclamation" src="/images/bi_exclamation-circle-fill.png" alt="signo de exclamacion">
+                    <h3>Solo letras sin acentos y sin caracteres especiales.</h3>
+                </div>
+            </div>
+            <div class="div-boton-pegar">
+                <button class="btn-1" id="button-pegar" type="button" onclick="btnPegar()">Pegar</button>
             </div>
             <div class="div-botones">
-                <button class="btn-1" type="button">Encriptador</button>
-                <button class="btn-2" type="button">Desencriptador</button>
+                <button class="btn-1" type="button" onclick="buttonEncriptar()">Encriptador</button>
+                <button class="btn-2" type="button" onclick="buttonDescencriptar()">Desencriptador</button>
             </div>
         </section>
         <section class="segunda-section">
-            <img class="img-muñeco" src="/images/Muñeco.jpg" alt="">
-            <div>
+            <div class="div-mensaje-text">
+                <img class="img-muñeco" src="/images/Muñeco.jpg" alt="">
                 <p class="mensaje">Nungún mensaje fue encontrado</p>
                 <textarea class="seg-textarea" id="area-segundo" cols="30" rows="10" placeholder="Ingrese el texto que desea encriptar o desencriptar."></textarea>
             </div>
-            <button class="btn-copiar" type="button">Copiar</button>
+            <button class="btn-copiar" type="button" onclick="btnCopiar()">Copiar</button>
         </section>
     </main>
+    <script src="/event.js"></script>
 </body>
 </html>
