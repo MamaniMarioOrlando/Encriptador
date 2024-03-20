@@ -13,6 +13,11 @@ const mayuscula = /[A-Z]/;
 const acentos = /[áéíóúÁÉÍÓÚ]/;
 const caracteres = /[^a-zA-Z0-9\s]/;
 
+const mqLarge  = window.matchMedia( '(max-width: 375px)' );
+
+const mqLargeTable  = window.matchMedia( '(max-width: 768px)' );
+
+
 function desencriptar(textoADesencriptado){
 
     let matris = [["a","ai"]
@@ -47,12 +52,34 @@ function buttonDescencriptar(){
     }
     else{
         visibleOhiddenEtiqeta(mensajeError,"hidden")
-        cambiosDeLaSegundaSeccion(parrafo
-            ,imgMunieco
-            ,buttonCopiar
-            ,segundaSeccion
-            ,textAreaDos
-            ,divSegundaSeccion);
+        if(mqLarge.matches){
+            cambiosDeLaSegundaSeccionLarge(parrafo
+                ,imgMunieco
+                ,buttonCopiar
+                ,segundaSeccion
+                ,textAreaDos
+                ,divSegundaSeccion)
+        }
+        if(mqLargeTable.matches){
+            noneOrBlockTag(parrafo,"none");
+            noneOrBlockTag(imgMunieco, "none");
+            segundaSeccion.style.height = "300px";
+            stylesForSecondSeccion(segundaSeccion,"initial");
+            stylesForSecondTextArea(textAreaDos,"left","1.8em","84%");
+            textAreaDos.style.position = "relative";
+            textAreaDos.style.top= "11%";
+            noneOrBlockTag(buttonCopiar,"block");
+            limpiarTexto(textAreaDos);
+            
+        }
+        else{
+            cambiosDeLaSegundaSeccion(parrafo
+                ,imgMunieco
+                ,buttonCopiar
+                ,segundaSeccion
+                ,textAreaDos
+                ,divSegundaSeccion);
+        }
         let textoEncriptado = desencriptar(texto.value);
         textAreaDos.value = textoEncriptado;
     }
@@ -64,18 +91,43 @@ function buttonEncriptar(){
     }
     else{
         visibleOhiddenEtiqeta(mensajeError,"hidden")
-        cambiosDeLaSegundaSeccion(parrafo
-            ,imgMunieco
-            ,buttonCopiar
-            ,segundaSeccion
-            ,textAreaDos
-            ,divSegundaSeccion);
+        if(mqLarge.matches){
+            cambiosDeLaSegundaSeccionLarge(parrafo
+                ,imgMunieco
+                ,buttonCopiar
+                ,segundaSeccion
+                ,textAreaDos
+                ,divSegundaSeccion)
+        }
+        if(mqLargeTable.matches){
+            noneOrBlockTag(parrafo,"none");
+            noneOrBlockTag(imgMunieco, "none");
+            segundaSeccion.style.height = "300px";
+            stylesForSecondSeccion(segundaSeccion,"initial");
+            stylesForSecondTextArea(textAreaDos,"left","1.8em","84%");
+            textAreaDos.style.position = "relative";
+            textAreaDos.style.top= "11%";
+            noneOrBlockTag(buttonCopiar,"block");
+            limpiarTexto(textAreaDos);
+            
+        }
+        else{
+            cambiosDeLaSegundaSeccion(parrafo
+                ,imgMunieco
+                ,buttonCopiar
+                ,segundaSeccion
+                ,textAreaDos
+                ,divSegundaSeccion);
+        }
+        
         let textoEncriptado = encriptar(texto.value);
         textAreaDos.value = textoEncriptado;
     }
 }
 function copiar(texto){
+    localStorage.setItem("texto",texto);
     navigator.clipboard.writeText(texto)
+
     .then(()=>{
         alert(`El texto ${texto} fue copiado!!`);
     })
@@ -83,29 +135,60 @@ function copiar(texto){
         alert("Se produjo un error al copiar el texto");
     })
 }
-function pegar(etiqueta){
-    navigator.clipboard.readText()
-    .then(text => {
-        etiqueta.value = text;
-        console.log('Texto del portapapeles:', text);
-    })
-    .catch(err => {
-        console.error('Error al leer del portapapeles:', err);
-    })
+async function pegar(etiqueta){
 
+    try{
+        const text = await navigator.clipboard.readText();
+        etiqueta.value = text;
+        alert("salio por try!");
+
+    }catch(error){
+        alert("salio por error!");
+        etiqueta.value = localStorage.getItem("texto");
+    }
+    
+  
+    
 }
 function btnCopiar(){
     copiar(textAreaDos.value);
-    limpiarTexto(texto);
-    limpiarTexto(textAreaDos);
-    activeTags(parrafo,imgMunieco,buttonCopiar,textAreaDos);
-    noneOrBlockTag(divBotonPegar,"block");
-    noneOrBlockTag(divBotones,"none");
+    if(mqLarge.matches){
+        
+        limpiarTexto(texto);
+        limpiarTexto(textAreaDos);
+        eventActiveTagsMedia(parrafo,imgMunieco,buttonCopiar,textAreaDos,segundaSeccion,divSegundaSeccion)
+        noneOrBlockTag(divBotonPegar,"block");
+        noneOrBlockTag(divBotones,"none");
+    }
+    if(mqLargeTable.matches){
+        
+        limpiarTexto(texto);
+        limpiarTexto(textAreaDos);
+        styleForMediaTable();
+        noneOrBlockTag(divBotonPegar,"block");
+        noneOrBlockTag(divBotones,"none");
+    }
+    else{
+        
+        limpiarTexto(texto);
+        limpiarTexto(textAreaDos);
+        activeTags(parrafo,imgMunieco,buttonCopiar,textAreaDos);
+        noneOrBlockTag(divBotonPegar,"block");
+        noneOrBlockTag(divBotones,"none");
+    }
 }
 function btnPegar(){
+    if(mqLarge.matches){
+        
+        divBotones.style.display = "flex";
+    }
+    else if(mqLargeTable.matches){
+        noneOrBlockTag(divBotones,"block");
+
+    }
     
     noneOrBlockTag(divBotonPegar,"none");
-    noneOrBlockTag(divBotones,"block");
+
     pegar(texto);
 }
 function verificarTextoValido(textoValidar){
@@ -123,9 +206,9 @@ function cambiosDeLaSegundaSeccion(parrafo
 
         noneOrBlockTag(parrafo, "none");
         noneOrBlockTag(imgMunieco,"none");
-        stylesForSecondSeccion(segundaSeccion);
+        stylesForSecondSeccion(segundaSeccion,"initial");
         stylesForSecondTextArea(textAreaDos,"left","1.8em","84%");
-        stylesForDivSecondSection(divSegundaSeccion)
+        stylesForDivSecondSection(divSegundaSeccion,"8%","relative","84%")
         visibleOhiddenEtiqeta(buttonCopiar,"visible");
     
 }
@@ -139,18 +222,18 @@ function noneOrBlockTag(etiqueta,valor){
 function visibleOhiddenEtiqeta(etiqueta, value){
     etiqueta.style.visibility = value;   
 }
-function stylesForSecondSeccion(etiqueta){
-    etiqueta.style.justifyContent = "initial";
+function stylesForSecondSeccion(etiqueta,justifyContent){
+    etiqueta.style.justifyContent = justifyContent;
 }
 function stylesForSecondTextArea(etiqueta,left,size,height){
     etiqueta.style.textAlign = left; 
     etiqueta.style.fontSize = size;
     etiqueta.style.height = height;
 }
-function stylesForDivSecondSection(etiqueta){
-    etiqueta.style.top = "8%";
-    etiqueta.style.position = "relative";
-    etiqueta.style.height = "84%";
+function stylesForDivSecondSection(etiqueta,top,position,height){
+    etiqueta.style.top = top;
+    etiqueta.style.position = position;
+    etiqueta.style.height = height;
 }
 function activeTags(parrafo,imgMunieco,buttonCopiar,textAreaDos){
     noneOrBlockTag(parrafo,"block");
@@ -160,8 +243,52 @@ function activeTags(parrafo,imgMunieco,buttonCopiar,textAreaDos){
     stylesForSecondTextArea(textAreaDos,"","12px","")
 
 }
+function eventActiveTagsMedia(parrafo,imgMunieco,buttonCopiar,textAreaDos,segundaSeccion,divSegundaSeccion){
+    noneOrBlockTag(parrafo,"block");
+    noneOrBlockTag(imgMunieco, "none");
+    segundaSeccion.style.height ="124px";
+    visibleOhiddenEtiqeta(buttonCopiar,"hidden");
+    stylesForSecondTextArea(textAreaDos,"center","","24px")
+    stylesForDivSecondSection(divSegundaSeccion,"","unset","124px")
+    limpiarTexto(textAreaDos);
+
+}
+function cambiosDeLaSegundaSeccionLarge(parrafo
+    ,imgMunieco
+    ,buttonCopiar
+    ,segundaSeccion
+    ,textAreaDos
+    ,divSegundaSeccion){
+        noneOrBlockTag(parrafo, "none");
+        noneOrBlockTag(imgMunieco,"none");
+        segundaSeccion.style.height ="400px";
+        stylesForSecondTextArea(textAreaDos,"left","1.8em","100%");
+        stylesForDivSecondSection(divSegundaSeccion,"0%","relative","67%")
+        visibleOhiddenEtiqeta(buttonCopiar,"visible");
+}
+function styleForMediaTable(){
+    noneOrBlockTag(parrafo,"block");
+        noneOrBlockTag(imgMunieco, "none");
+        segundaSeccion.style.height = "108px";
+        textAreaDos.style.position = "unset";
+        stylesForSecondSeccion(segundaSeccion,"center")
+        stylesForSecondTextArea(textAreaDos,"center","","24px")
+        noneOrBlockTag(buttonCopiar,"none");
+        limpiarTexto(textAreaDos);
+}
 function eventTextArea(){
     limpiarTexto(texto)
-    activeTags(parrafo,imgMunieco,buttonCopiar,textAreaDos);
+    if(mqLarge.matches){
+        
+        eventActiveTagsMedia(parrafo,imgMunieco,buttonCopiar,textAreaDos,segundaSeccion,divSegundaSeccion)
+    }
+    else if(mqLargeTable.matches){
+        styleForMediaTable();
+    }
+    else{
+        activeTags(parrafo,imgMunieco,buttonCopiar,textAreaDos)
+    }
+
+    
 }
 

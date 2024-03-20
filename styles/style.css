@@ -136,3 +136,120 @@ button:hover{
     color: #0A3871;
     visibility: hidden;
 }
+footer{
+    margin: 3em 0 1.5em 0;
+}
+.div-redes-contenedor{
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+.creador{
+    padding: 1em;
+}
+.img-redes{
+    width: 30px;
+    margin: 0 0.5em;
+}
+a{
+    text-decoration: none;
+}
+
+@media(max-width:375px){
+    /* logo*/
+    .logo {
+        padding-top: 1em;
+        width: 20%;
+        padding-left: 0em;
+      }
+    /* main*/
+    main{
+        flex-direction: column;
+    }
+    
+    /*primera seccion*/
+    .primer-section{
+        width: auto;
+    }
+    .primer-textarea {
+        padding: 0.7em;
+        width: 88%;
+        left: 0px;
+        height: 47%;
+    }
+    .div-terminos{
+        width: 80%;
+        left: 7%;
+        height: 10%;
+    }
+    .h3-termino{
+        float: left;
+        position: relative;
+        left: 20px;
+        bottom: 12px;
+        width: 287px;
+        line-height: 110%;
+    }
+    .div-botones{
+        display: flex;
+        flex-direction: column;
+        width: 88%;
+        padding: 0 22.4px 0 22.4px;
+        position: relative;
+        height: 18%;
+        justify-content: space-between;
+    }
+    button{
+        width: 100%;
+    }
+    .btn-1,.btn-2  {
+        margin: 0em;
+    }
+    /*segunda seccion*/
+    .segunda-section{
+        width: auto;
+        margin: 22.4px;
+        height: 108px;
+    }
+    .div-mensaje-text{
+        top: 14%;
+        position: relative;
+        
+    }
+    .seg-textarea {
+        height: 24px;
+    }
+    .img-muñeco {
+        display: none;
+    }
+    #button-pegar{
+        width: 60%;
+    }
+    
+}
+@media(min-width: 376px) and (max-width: 768px){
+    main {
+        display: block;
+    }
+    .primer-section {
+        width: 100%;
+    }
+    .segunda-section {
+        width: 59%;
+        margin-right: 0;
+        position: relative;
+        left: 18%;
+        margin-right: 0;
+        height: 103px;
+    }
+    .seg-textarea {
+        height: 2em;
+    }
+    .img-muñeco {
+        display: none;
+    }
+    .btn-copiar{
+        visibility: unset;
+        display: none;
+    }
+}
