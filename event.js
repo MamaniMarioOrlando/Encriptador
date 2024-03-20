@@ -140,10 +140,8 @@ async function pegar(etiqueta){
     try{
         const text = await navigator.clipboard.readText();
         etiqueta.value = text;
-        alert("salio por try!");
 
     }catch(error){
-        alert("salio por error!");
         etiqueta.value = localStorage.getItem("texto");
     }
     
@@ -185,6 +183,9 @@ function btnPegar(){
     else if(mqLargeTable.matches){
         noneOrBlockTag(divBotones,"block");
 
+    }
+    else{
+        noneOrBlockTag(divBotones,"block");
     }
     
     noneOrBlockTag(divBotonPegar,"none");
